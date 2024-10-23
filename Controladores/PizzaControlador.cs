@@ -13,6 +13,7 @@ namespace Controladores
     {
         public static void Crear(string nombre, string precio)
         {
+
             PizzaModelo pizza = new PizzaModelo();
             pizza.Nombre = nombre;
             pizza.Precio = Int32.Parse(precio);
@@ -71,6 +72,22 @@ namespace Controladores
 
 
 
+        }
+
+        public static Dictionary<string, string> BuscarPorNombre(string nombre)
+        {
+            Dictionary<string, string> resultado = new Dictionary<string, string>();
+            PizzaModelo p = new PizzaModelo();
+            if (p.BuscarPorNombre(nombre))
+            {
+                resultado.Add("resultado", "true");
+                resultado.Add("id", p.Id.ToString());
+                resultado.Add("nombre", p.Nombre);
+                resultado.Add("precio", p.Precio.ToString());
+                return resultado;
+            }
+            resultado.Add("resultado", "false");
+            return resultado;
         }
 
 

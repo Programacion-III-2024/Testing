@@ -80,5 +80,25 @@ namespace Modelos
             return false;
 
         }
+        public bool BuscarPorNombre(string nombre)
+        {
+            string sql = $"SELECT * FROM pizzas WHERE eliminado = false and nombre = '{nombre}'";
+            this.Comando.CommandText = sql;
+            this.Lector = this.Comando.ExecuteReader();
+
+            if (this.Lector.HasRows)
+            {
+                this.Lector.Read();
+                this.Id = Int32.Parse(this.Lector["Id"].ToString());
+                this.Nombre = this.Lector["Nombre"].ToString();
+                this.Precio = Int32.Parse(this.Lector["Precio"].ToString());
+                this.Lector.Close();
+                return true;
+
+            }
+            this.Lector.Close();
+            return false;
+
+        }
     }
 }
